@@ -5,28 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script defer src="script.js"></script>
   </head>
   <body>
-    <div id="button-container">
-      <button id="btn-ac">AC</button>
-      <button id="btn-sign">+/-</button>
-      <button id="btn-modulo" class="btn-operator">%</button>
-      <button id="btn-divide" class="btn-operator">/</button>
-      <button id="btn-multiply" class="btn-operator">*</button>
-      <button id="btn-subtract" class="btn-operator">-</button>
-      <button id="btn-add" class="btn-operator">+</button>
-      <button id="btn-equal" class="btn-operator">=</button>
-      <button id="btn-decimal" class="btn-number">.</button>
-      <button id="btn-one" class="btn-number">1</button>
-      <button id="btn-one" class="btn-number">2</button>
-      <button id="btn-one" class="btn-number">3</button>
-      <button id="btn-one" class="btn-number">4</button>
-      <button id="btn-one" class="btn-number">5</button>
-      <button id="btn-one" class="btn-number">6</button>
-      <button id="btn-one" class="btn-number">7</button>
-      <button id="btn-one" class="btn-number">8</button>
-      <button id="btn-one" class="btn-number">9</button>
-      <button id="btn-one" class="btn-number">0</button>
+    <div id="calculator">
+      <div id="screen">0</div>
+      <div id="button-container">
+        <button id="btn-ac" style="grid-area: 1">AC</button>
+        <button id="btn-sign" style="grid-area: 1/2">+/-</button>
+        <button
+          id="btn-modulo"
+          class="btn-operand"
+          data-operand="modulo"
+          style="grid-area: 1/3"
+        >
+          %
+        </button>
+        <button
+          id="btn-divide"
+          class="btn-operand"
+          data-operand="divide"
+          style="grid-area: 1/4"
+        >
+          /
+        </button>
+        <button
+          id="btn-multiply"
+          class="btn-operand"
+          data-operand="multiply"
+          style="grid-area: 2/4"
+        >
+          *
+        </button>
+        <button
+          id="btn-subtract"
+          class="btn-operand"
+          data-operand="subtract"
+          style="grid-area: 3/4"
+        >
+          -
+        </button>
+        <button
+          id="btn-add"
+          class="btn-operand"
+          data-operand="add"
+          style="grid-area: 4/4"
+        >
+          +
+        </button>
+        <button id="btn-equal" style="grid-area: 5/4">=</button>
+        <button id="btn-decimal" class="btn-number" style="grid-area: 5/3">
+          .
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 4/1">
+          1
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 4/2">
+          2
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 4/3">
+          3
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 3/1">
+          4
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 3/2">
+          5
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 3/3">
+          6
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 2/1">
+          7
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 2/2">
+          8
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 2/3">
+          9
+        </button>
+        <button id="btn-one" class="btn-number" style="grid-area: 5/1/6/3">
+          0
+        </button>
+      </div>
     </div>
   </body>
 </html>
