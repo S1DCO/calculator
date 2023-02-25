@@ -8,62 +8,72 @@ const btnChangeSign = document.getElementById("btn-sign");
 
 let currentScreenNumber = 0;
 let storedNumber = 0;
-let currentScreenOperand = "";
-let storedOperand = "";
-let resetScreen = false;
+let currentScreenOperator = "";
+let storedOperator = "";
+let resetScreen = false; //clicking a number will append it to the screen if false
+let firstCalculation = true;
+let firstOperator = true; //to prevent pressing operator multiple times without a number;
 
 btnAC.addEventListener("click", clear);
 
-buttonContainer.addEventListener("click", clickOperandButton);
+buttonContainer.addEventListener("click", clickOperatorButton);
 buttonContainer.addEventListener("click", clickNumberButton);
 btnEqual.addEventListener("click", clickEqualButton);
 btnChangeSign.addEventListener("click", changeSign);
 
-function clickOperandButton(e) {
-  if (!e.target.closest(".btn-operand")) return;
+function clickOperatorButton(e) {
+  //clicked button must be an operator: +. -. x, /
+  if (!e.target.closest(".btn-operator")) return;
+  //if(!firstOperator)return;
   resetScreen = true;
-  currentScreenOperand = e.target.dataset.operand;
-
-  if (storedOperand) {
+  currentScreenOperator = e.target.dataset.operator;
+  //are you chaining an operation?
+  if (!firstCalculation && firstOperator) {
     const solution = Number(
-      operate(storedOperand, storedNumber, currentScreenNumber)
+      operate(storedOperator, storedNumber, currentScreenNumber)
     );
     screen.textContent = toNDecimalPlaces(solution, 2);
   }
-
+  firstOperator = false;
+  firstCalculation = false;
   storedNumber = Number(screen.textContent);
-  storedOperand = currentScreenOperand;
+  storedOperator = currentScreenOperator;
 }
 function toNDecimalPlaces(num, places = 2) {
   return Math.round(num * 10 ** places) / 10 ** places;
 }
 
 function clickNumberButton(e) {
+  //clicked button must be a number button including decimal places;
   if (!e.target.closest(".btn-number")) return;
   if (e.target.closest("[data-number='.']") && screen.textContent.includes("."))
     return; //return if you select dot but there is dot already in the display
 
-  //if block below make sure there are no leading zeros
+  //if block below makes sure there are no leading zeros
   if (resetScreen || screen.textContent === "0") {
     screen.textContent = "";
     resetScreen = false;
   }
 
+  //Number selected
   const btnNumber = e.target.dataset.number;
-
+  //appendNumber
   screen.textContent += btnNumber;
   currentScreenNumber = Number(screen.textContent);
+
+  firstOperator = true;
 }
 
 function clickEqualButton() {
-  resetScreen = true;
   const solution = Number(
-    operate(storedOperand, storedNumber, currentScreenNumber)
+    operate(storedOperator, storedNumber, currentScreenNumber)
   );
   if (!solution) return;
   screen.textContent = toNDecimalPlaces(solution, 2);
   currentScreenNumber = Number(screen.textContent);
-  storedOperand = null;
+
+  resetScreen = true;
+  firstCalculation = true;
 }
 
 function changeSign() {
@@ -73,27 +83,29 @@ function changeSign() {
 
 function clear() {
   currentScreenNumber = 0;
-  currentScreenOperand = "";
+  currentScreenOperator = "";
   resetScreen = false;
   screen.textContent = 0;
   storedNumber = 0;
-  storedOperand = "";
+  storedOperator = "";
+  firstCalculation = true;
+  firstOperator = true;
 }
 
-function operate(operand, firstNum, secondNum) {
-  if (operand === "add") {
+function operate(operator, firstNum, secondNum) {
+  if (operator === "add") {
     return firstNum + secondNum;
   }
-  if (operand === "subtract") {
+  if (operator === "subtract") {
     return firstNum - secondNum;
   }
-  if (operand === "multiply") {
+  if (operator === "multiply") {
     return firstNum * secondNum;
   }
-  if (operand === "divide") {
+  if (operator === "divide") {
     return firstNum / secondNum;
   }
-  if (operand === "modulo") {
+  if (operator === "modulo") {
     return firstNum % secondNum;
   }
 }
