@@ -56,6 +56,7 @@ function clickNumberButton(e) {
 }
 
 function clickEqualButton() {
+  resetScreen = true;
   const solution = Number(
     operate(storedOperand, storedNumber, currentScreenNumber)
   );
