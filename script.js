@@ -60,7 +60,7 @@ function clickEqualButton() {
   const solution = Number(
     operate(storedOperand, storedNumber, currentScreenNumber)
   );
-
+  if (!solution) return;
   screen.textContent = toNDecimalPlaces(solution, 2);
   currentScreenNumber = Number(screen.textContent);
   storedOperand = null;
