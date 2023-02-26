@@ -12,7 +12,7 @@ let currentScreenOperator = "";
 let storedOperator = "";
 let resetScreen = false; //clicking a number will append it to the screen if false
 let firstCalculation = true;
-let firstOperator = true; //to prevent pressing operator multiple times without a number;
+let firstOpEqSign = true; //to prevent pressing operator multiple times without a number;
 
 btnAC.addEventListener("click", clear);
 
@@ -24,17 +24,17 @@ btnChangeSign.addEventListener("click", changeSign);
 function clickOperatorButton(e) {
   //clicked button must be an operator: +. -. x, /
   if (!e.target.closest(".btn-operator")) return;
-  //if(!firstOperator)return;
+  //if(!firstOpEqSign)return;
   resetScreen = true;
   currentScreenOperator = e.target.dataset.operator;
   //are you chaining an operation?
-  if (!firstCalculation && firstOperator) {
+  if (!firstCalculation && firstOpEqSign) {
     const solution = Number(
       operate(storedOperator, storedNumber, currentScreenNumber)
     );
     screen.textContent = toNDecimalPlaces(solution, 2);
   }
-  firstOperator = false;
+  firstOpEqSign = false;
   firstCalculation = false;
   storedNumber = Number(screen.textContent);
   storedOperator = currentScreenOperator;
@@ -61,10 +61,11 @@ function clickNumberButton(e) {
   screen.textContent += btnNumber;
   currentScreenNumber = Number(screen.textContent);
 
-  firstOperator = true;
+  firstOpEqSign = true;
 }
 
 function clickEqualButton() {
+  if (!firstOpEqSign) return;
   const solution = Number(
     operate(storedOperator, storedNumber, currentScreenNumber)
   );
@@ -74,6 +75,7 @@ function clickEqualButton() {
 
   resetScreen = true;
   firstCalculation = true;
+  firstOpEqSign = false;
 }
 
 function changeSign() {
@@ -89,7 +91,7 @@ function clear() {
   storedNumber = 0;
   storedOperator = "";
   firstCalculation = true;
-  firstOperator = true;
+  firstOpEqSign = true;
 }
 
 function operate(operator, firstNum, secondNum) {
