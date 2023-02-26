@@ -15,7 +15,6 @@ let firstCalculation = true;
 let firstOpEqSign = true; //to prevent pressing operator multiple times without a number;
 
 btnAC.addEventListener("click", clear);
-
 buttonContainer.addEventListener("click", clickOperatorButton);
 buttonContainer.addEventListener("click", clickNumberButton);
 btnEqual.addEventListener("click", clickEqualButton);
